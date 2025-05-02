@@ -1,25 +1,9 @@
-var fs = require('fs');
+let [a,b,c] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map(Number).sort((x,y)=> x-y);
 
-const input = fs.readFileSync('/dev/stdin').toString().split(' ');
-
-const a = input;
-const b = Array(6).fill(0);
-let reward = 0;
-
-a.forEach(item => {
-  b[item - 1] = b[item - 1] + 1;
-});
-
-const all = b.findIndex(item => item === 3) + 1;
-const two = b.findIndex(item => item === 2) + 1;
-const notOne = b.findIndex(item => item > 1) + 1;
-
-if (all > 0) {
-  reward = 10_000 + all * 1_000;
-} else if (two) {
-  reward = 1_000 + two * 100;
-} else if (!notOne) {
-  reward = Math.max(...a) * 100;
+if (a == b && b == c) {
+  console.log(10000 + a * 1000);
+} else if (a == b || b == c) {
+  console.log(1000 + b * 100);
+} else {
+  console.log(c * 100);
 }
-
-console.log(reward);
